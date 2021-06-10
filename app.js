@@ -17,7 +17,7 @@ app.get("/",function(req,res){
 
 app.post("/result/:examine/:result",function(req,res){
  
- var examine = req.params.examine;
+ var examine = req.params.examine.replace(/_/g, ' ');
  var result  = req.params.result;
 
   console.log(examine,result)
@@ -36,7 +36,7 @@ res.json({ username: 'Flavio' });
     var mailOptions = {
       from: process.env.GMAIL_ADDRESS,
       to: "islam876ripon@gmail.com",
-      subject: "A new examine taken this test",
+      subject: "A new examine taken the test",
       text: `${examine} has taken the test and got a result of ${result} out of 15`
     };
 

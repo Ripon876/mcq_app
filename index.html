@@ -15,7 +15,7 @@
     <form>
     <div class="form-group mt-4">
         <label>Your Name</label>
-        <input type="text" class="form-control" required="" id="user_name"  placeholder="name">
+        <input type="text" class="form-control" required id="user_name"  placeholder="name">
     </div>
     <div class="form-group">
         <label for="exampleFormControlInput2"> Your Email address</label>
@@ -25,6 +25,23 @@
     <button class="btn btn-primary" type="submit" id="take_information">Enter</button>
     </form>
 </div>
+
+
+<div class="container show_result">
+    <div style="max-width: 600px;margin: 80px auto 50px;padding: 30px;border-radius: 20px;background: #c0e2df;position: relative;min-height: 240px;overflow: hidden;;">
+        <div class="mt-5">
+            
+        
+        <h2  id="show_user_name" class="text-center"></h2>
+        <h3  class="text-center">You got <span id="result_publish"></span> out of 15</h3>
+        <div class="container text-center">
+          <a href="/" class="btn btn-primary mt-2">Click Here To retake the test</a>          
+        </div>
+
+    </div>
+    </div>
+</div>
+
         <div class="wrapper questions">
             <form  id="myForm" >
 
@@ -98,33 +115,35 @@
 
                 </div>
             </div>        
-            <input type="text" id="result_container" value="dafsd" name="result" style="display: none;">
+            <input type="text" id="result_container"  name="result" style="display: none;">
             <input type="submit" value="Submit" class="btn btn-primary mt-3">
            </form>
         </div>
    
 
-<script>
+<script>   
+     let examine = "";
     $(".questions").hide();
-
+    $(".show_result").hide();
 
 $(".user_information form").on("submit",function(e){
-  e.preventDefault();
+    e.preventDefault();
 })
 
+
    $("#take_information").click(function(){
-  alert("The paragraph was clicked.");
+
+ examine = document.getElementById("user_name").value.replace(/\s+/g, '_');
+
 
       $(".questions").show(700);
-
       $(".user_information").hide(600);
 });
 </script>
 <script>
     var result = 0;
-    var examine = "Ripon";
 
-    
+
     function disable(d){
 
     var ds = d.classList[2];
@@ -135,29 +154,13 @@ $(".user_information form").on("submit",function(e){
     
     $(cla).attr('disabled', true);
 
-
-
     if(value == 0){
-        alert("you are wrong");
     }
     if(value == 1){
-
-        result+=1;
-
-
-        alert("you are right");  // this is for debuging
-        alert(result);          // this is for debuging
-         
+        result+=1;   
     }
 
      }
-
-
-
-
-
-
-
 
 
 
@@ -168,12 +171,9 @@ $(".user_information form").on("submit",function(e){
 
     $('#myForm').submit(function(e){
 
+   e.preventDefault();
 document.getElementById("result_container").value = result;
 
-
-
-
-    // var examine = user_name.replace(/\s+/g, '_');
 
 var postUrl = '/result/' + examine + '/' + result;
 console.log(postUrl)
@@ -185,7 +185,7 @@ console.log(postUrl)
     xhr.onload = function () {
         if(this.status === 200){
 
-            console.log(this.responseText)
+            console.log("done")
         }
         else{
             console.log("Some error occured")
@@ -193,18 +193,49 @@ console.log(postUrl)
     }
     xhr.send();
 
-   e.preventDefault();
 });
 
 
 
+</script>
+<script>
+   
+
+    $('#myForm').submit(function(e){
+$("#myForm input[type=radio]:checked").each(function() {
+  if(this.value == 0 && this.checked == true)
+  {
+
+     var v = $(this).parents()[0].children[1].style.background = 'red';
+     var k = $(this).parents()[0].children[1].style.border = 'red';
+     var c = $(this).parents()[0].style.color = "red";
+     console.log(c)
+  }
+
+ if(this.value == 1 && this.checked == true)
+  {
+
+     var v = $(this).parents()[0].children[1].style.background = 'green';
+     var k = $(this).parents()[0].children[1].style.border = 'green';
+     var c = $(this).parents()[0].style.color = "green";
+     console.log(v)
+  }
+
+});
+
+});
 
 
+   $('#myForm').submit(function(e){
 
-
-
-
-
+        $(".show_result #show_user_name").text(document.getElementById("user_name").value);
+        $(".show_result #result_publish").text(result);
+          $(".show_result").show(400);
+          function scrollToTop() {
+            $("html, body").animate({ scrollTop: "0" });
+        }
+        scrollToTop()
+});
 </script>
     </body>
 </html>
