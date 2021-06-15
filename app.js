@@ -34,34 +34,34 @@ if (process.env.TWO_RECEIVER === "yes") {
 
 // node mailer
 
-    // var transporter = nodemailer.createTransport({
-    //   service: 'gmail',
-    //   auth: {
-    //     user: process.env.GMAIL_ADDRESS,
-    //     pass: process.env.GMAIL_PASSWORD
-    //   }
-    // });
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_ADDRESS,
+        pass: process.env.GMAIL_PASSWORD
+      }
+    });
 
 
 
 
-    // var mailOptions = {
-    //   from: process.env.GMAIL_ADDRESS,
-    //   to: mailList,
-    //   subject: "A new examine taken the test",
-    //   text: `${examine} has taken the test and got a result of ${result} out of 15`
-    // };
+    var mailOptions = {
+      from: process.env.GMAIL_ADDRESS,
+      to: mailList,
+      subject: "A new examine taken the test",
+      text: `${examine} has taken the test and got a result of ${result} out of 15`
+    };
 
-    // transporter.sendMail(mailOptions, function(error, info){
-    //   var title = ""
-    //   if (error) {
-    //     console.log(error);
-    //     res.render("404",{title: title,currenUser: req.user});
-    //   } else {
-    //     console.log('Email sent: ' + info.response);
-    //     res.send("email successfully sent..");
-    //   }
-    // });
+    transporter.sendMail(mailOptions, function(error, info){
+      var title = ""
+      if (error) {
+        console.log(error);
+        res.render("404",{title: title,currenUser: req.user});
+      } else {
+        console.log('Email sent: ' + info.response);
+        res.send("email successfully sent..");
+      }
+    });
 
 
 })
