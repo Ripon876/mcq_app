@@ -12,7 +12,8 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/",function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html'));
+  // res.sendFile(path.join(__dirname+'/index.html'));
+  res.send("Not Allowed");
 })
 
 app.post("/result/:examine/:result",function(req,res){
