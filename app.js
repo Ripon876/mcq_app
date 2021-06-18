@@ -12,7 +12,7 @@ var port           = process.env.PORT || 3000;
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 var corsOptions = {
-  origin: 'https://desolate-retreat-97294.herokuapp.com/',
+  origin: '*',
   optionsSuccessStatus: 200
 }
 
